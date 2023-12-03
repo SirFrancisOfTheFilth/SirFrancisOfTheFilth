@@ -1,3 +1,31 @@
+/*--------------------------------------------------------------------------
+This plugin adds functions to save the currently playing player turn music into
+a variable and play it at a later time.
+
+How to use:
+
+To save music to a variable, use the function
+
+SaveMusicVariable(index, ID)					//index = tab in the variable table (starts with 0!)	ID = ID of the variable within the specified tab
+
+in an Execute Event > Execute Code event command.
+
+To change the map music according to a variable, use
+
+LoadMusicVariable((index, ID, isRuntime)			//index and ID are the same as in SaveMusicVariable	isRuntime is true for RTP music and false for original music
+
+or
+
+LoadMusicVariableNoPlay((index, ID, isRuntime)			//This function doesn't play the music right away, only changes it
+
+
+Original Plugin Author:
+Francis of the Filth
+  
+Plugin History:
+2023/12/03 Released
+  
+--------------------------------------------------------------------------*/
 var SaveMusicVariable = function(index, ID) {
 	
 	var mapInfoHandle = root.getCurrentSession().getCurrentMapInfo();
