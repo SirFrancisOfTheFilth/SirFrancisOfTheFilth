@@ -13,7 +13,10 @@
   Original Plugin Author:
   Francis of the Filth
   
-  2023/01/07 Released
+  2024/01/07 Released
+  
+  2024/01/29
+	Fixed an issue if using only one of FotF_ThirdLayer or FotF_UnlimitedLayers
   
   
 --------------------------------------------------------------------------*/
