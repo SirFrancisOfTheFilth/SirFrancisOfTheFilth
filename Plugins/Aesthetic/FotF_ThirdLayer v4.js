@@ -94,7 +94,7 @@ ____________________________________________________________________________
 		Unit heads are now never cut off, even if another unit is above them.
 		
 		Added custom parameter "aboveThird". Units with this custom parameter will be rendered above
-		the third layer (e.g. for flying units).
+		the third layer (e.g. for flying units). Use like aboveThird:true
 	
 	
 --------------------------------------------------------------------------*/
