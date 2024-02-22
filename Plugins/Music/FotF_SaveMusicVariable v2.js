@@ -12,11 +12,11 @@ in an Execute Event > Execute Code event command.
 
 To change the map music according to a variable, use
 
-LoadMusicVariable((index, ID, isRuntime)			//index and ID are the same as in SaveMusicVariable	isRuntime is true for RTP music and false for original music
+LoadMusicVariable(index, ID, isRuntime)				//index and ID are the same as in SaveMusicVariable	isRuntime is true for RTP music and false for original music
 
 or
 
-LoadMusicVariableNoPlay((index, ID, isRuntime)			//This function doesn't play the music right away, only changes it
+LoadMusicVariableNoPlay(index, ID, isRuntime)			//This function doesn't play the music right away, only changes it
 
 
 Original Plugin Author:
