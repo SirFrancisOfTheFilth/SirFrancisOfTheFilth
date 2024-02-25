@@ -204,9 +204,7 @@ FotF_CreateMergeArray = function() {
 		}
 	}
 	
-	//root.drawFadeLight(mergeArray, FotF_SupportRangeColor, FotF_SupportRangeAlpha);
-	//graphicsManager.resetRenderCache();
 	root.log('support range cache created');
 	FotF_SupportRangeCache = mergeArray
-	//return mergeArray;
+
 };
