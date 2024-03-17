@@ -1,0 +1,15 @@
+Behold! The layer system!
+
+Using this plugin system, you can render as many layers over or under units as you want. No more dancing around
+with 2 mapchips per tile! You and you alone decide how many is too many! Want units to be able to hide behind
+the terrain? Go ahead! Shape the map to your liking with the layer system.
+
+The LayerRenderer is the brain of the layer system. It coordinates the other two plugins and is used for
+settings.
+
+The third layer plugin is adapted from RogueClaris' third layer plugin, but heavily modified with lots of
+improvements. It renders mapchips with a certain custom parameter over units.
+
+Unlimited layers makes it possible to render more than 2 mapchip images to the same coordinates. In fact,
+the number of images is unlimited, as the name suggests. It is even possible to render third layer tiles
+with this plugin.
