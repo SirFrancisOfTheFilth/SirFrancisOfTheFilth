@@ -14,6 +14,12 @@
   Francis of the Filth
   
   2024/02/25 Released
+
+  2024/03/27
+  Fixed a bug where the range would be drawn incorrectly or not drawn at all
+  at map start until a unit moves.
+
+  Fixed a crash when entering the base.
   
 --------------------------------------------------------------------------*/
 
