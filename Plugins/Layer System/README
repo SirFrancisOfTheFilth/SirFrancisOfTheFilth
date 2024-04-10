@@ -14,6 +14,4 @@ Unlimited layers makes it possible to render more than 2 mapchip images to the s
 the number of images is unlimited, as the name suggests. It is even possible to render third layer tiles
 with this plugin.
 
-The folder inside the included .zip file (FotF_UnlimitedLayers.zip) needs to be placed inside the Material
-folder of your project. It contains essential files and the game will not start if they're missing.
-DO NOT REMOVE, RENAME OR RELOCATE THE FOLDER OR FILES INSIDE!
+Just download and unpack the .zip file containing a sample project.
