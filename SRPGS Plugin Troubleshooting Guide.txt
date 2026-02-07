@@ -1,0 +1,297 @@
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        			What is wrong with my plugin?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+						 by Sir Francis of the Filth
+
+
+Excellent question. If you follow this guide, chances are you will fix the problem yourself instead of having to trouble the
+scripters of your favorite SRPGS Discord server. Simply check off all the steps (at least those that apply to your plugin).
+Only if none of this helps is your problem serious.
+
+[1] Have you installed the plugin correctly?
+
+	Yes I know, it's trivial. But it's the first step and some people have no experience with it. So the very first step
+	after acquiring a plugin is it's "installation". For this, simply move all the plugin (.js) files and all folders
+	containing such into the "Plugin" folder of your game project. Plugin can reside in sub-folders of "Plugin" for
+	sorting reasons.
+
+	If the plugin came with a material folder (e.g. containing images to be drawn), this folder needs to go into the
+	"Material" folder of your project.
+
+	Check if the names of the plugin files you want to actually use don't start with a dollar sign ($), as this tells the
+	game to ignore the file. This can be used to quickly enable/disable plugins. (Need to restart game for this, but not
+	engine)
+
+[2] Have you read the instructions?
+
+	This should be common sense, but is a hurdle for some people. Most scripters will include instructions to their works,
+	either directly inside the file (commented out section, usually at the very start) or inside a separate text file
+	(usually called readme.txt or similar).
+
+	READ IT. If you struggle to understand the instructions, the following sections will help you understand.
+
+[3] Have you looked at the plugin file's settings?
+
+	Some (not all) plugins come with a settings section (usually below the instructions, right above the actual code or in
+	a separate settings or config file) that may or may not be configured to your liking. What the settings do and what
+	values are supported differs from plugin to plugin, but this query might help?
+
+		1. Is it a yes/no (or on/off) setting?
+			--> In 99% of cases it's a boolean. Example: isRealBattleAllowed: true
+
+		2. Does it ask for a number, limit or count?
+			--> Very likely a number. Example: bonusAttackCount: 3
+
+		3. Is it a list of things?
+			--> Has to be an array then, right? Example: stateIds: [57, 3, 7]
+			    Arrays can contain other values, more about this in [4].
+
+		4. Does it want you to name something?
+			--> It's a string, probably. Example: itemName: "Custom Item"
+
+		5. It's none of these?
+			--> An object or function might be required. These can be more complicated, but are very rare in
+			    a plugin's settings. If you need to specify one, see [4] or ask someone with coding knowledge.
+
+
+	If you're still unsure which type to use, look at which type is used in the preconfigured settings and use the same
+	one (and change the value, e.g. true to false, if you want). To learn more about the different types of values, which
+	are also used in custom parameters, read [4].
+
+[4] Custom parameters aren't that hard
+
+	Most plugins use custom parameters (cuspara in short) in some form to give you control over what the plugin should do. 
+	Custom parameters are a property of their parent object (e.g. units, classes, skills, states, terrain, ...) and
+	therefore JavaScript objects themselves. As such, they are always encased in curly braces {}, so your custom parameters
+	of any object must always begin with { and end with }. If you close the starting brace (there can be brace nesting,
+	more later), everything below that will be ignored, so it won't have any effect! An example for a custom parameter
+	object is this:
+
+		{
+			cusparaBoolean: true,
+			cusparaNumber: 69,
+			cusparaString: "Man, I love SapphireSoft",
+			cusparaArray: [420, "Blaze It", [1, 2, 3]],
+			cusparaObject: {
+				subValue1: 711,
+				subValue2: "Dankboi68 sucks"
+			},
+			cusparaFunction: function(arg1, arg2, arg3) {
+				//This does something
+			}
+		}
+
+	This may look complicated at first, but let's break it down into simple components:
+
+		1.	The base cuspara is encased in curly braces and contains one or more properties that have values:
+
+				{
+					property1: value1,
+					property2: value2
+				}
+		
+		2.	Properties are the "identifiers" or names the plugin reads to get their associated values. First comes
+			the identifier, then a colon (:) and after that the value. If an object has multiple properties, they
+			are separated by commas.
+
+		3.	The values for properties can be of different types:
+
+				Boolean: Either true or false, basically yes or no.
+				Number: A number like 42 or even decimals and negatives like -3.14.
+				String: Text inside quotation marks "" (apostrophes '' work as well).
+				Array: A list of values. Encased by brackets []. The values are separated by commas.
+				Object: Another object inside the cuspara object. Can contain other properties with values.
+				Function: A piece of code that can be executed. Usually needs arguments (in the parentheses).
+
+	
+	SRPG Studio's cuspara prompt (where you put the cusparas) checks for some syntax errors, so if you get an error
+	message when trying to exit the window, you did something wrong. Common mistakes are:
+
+		- Forgotten parentheses, braces or curly braces (especially the closing ones).
+		- Forgotten commas between properties
+		- Forgotten colons between property and value
+		- Typos (Remember: Javascript is case sensitive!)
+
+	Typos are especially tricky, since they usually don't produce errors in the custom parameters, but the plugin doesn't
+	work because it can't recognize the property.
+
+[5] Where do I put the custom parameters?
+
+	Custom parameters can be applied to a great variety of things in SRPG Studio. Most commonly it's objects from the
+	database like units, items, states and more. The custom parameter prompt for these is usually easy to find, because it's
+	labeled "Custom Parameters" and located somewhere in the editor window of that object.
+
+	However, there are some more obscure or hard to find cuspara prompts, that I will try to list here:
+
+		- Terrain: Each tile has it's own cuspara prompt found by first selecting the tileset you want in the "Terrain"
+		  tab of the database, then clicking on "Edit Terrain", selecting the terrain you want (or creating a new one
+		  so you can apply it to tiles) and clicking "Custom Parameters". You have to assign the terrain data to the
+		  tiles for any effect to show of course.
+
+		- NPCs, Races, Class Types, Weapon Types, Difficulties, Fusions, Transformations:
+		  Accessed through Database > Config > [Object] > Custom Parameters
+
+		- Global/Env Parameters: Not really custom parameters, but they work the same. Accessed through
+		  Database > Config > Global Parameters
+
+		- Original Data: Accessed through Database > Config > Original Data > Choose tab and data > Custom Paramaters
+
+		- Map Cusparas: Map Information (Cogwheel symbol) > Custom Parameters
+
+		- Effects/Motions: Animations > Right click the effect/motion in the list > Details > Custom Parameters
+
+		- Effect/Motion Frames: Select the effect/motion > Right click the frame > Property > Custom Parameters
+
+		- Events: Double click the event > Custom Parameters
+
+		- Unit Events: Select the unit > Unit Events > Right click the event > Details > Custom Parameters
+
+		- Enemy/Ally/Reinforcement Units: In the Enemy/Ally/Reinforments windows > Custom Parameters
+
+		- Characters/Glossary/Gallery/Sound Room: Story Settings > Choose the tab > Custom parameters
+
+		- Base stuff: Base Settings, can be a bit hard to find some, like Area Settings (click on the area)
+
+[6] Custom Keywords
+
+	Unlike custom parameters, custom keywords are very simple. They're used exclusively for weapons, items, states and
+	skills and serve the purpose of making code recognize a custom built object. They usually call for you to set the
+	object's type to "Custom" and enter a custom keyword (Example: "Special-Recoil").
+
+	There are some things to be said about custom keywords however:
+
+		- Use no apostrophes/quotation marks, the plugin creator likely just used these to make the keyword stand out.
+		- Usually, skills/states with custom keywords will not stack. Only the first (database order) is activated.
+		
+
+[7] Execute Script event commands
+
+	Execute  Script event commands are a way for you to execute JavaScript code in an event. To utilize this, make sure to
+	check "Execute Code". Plugins normally tell you what to write in these.
+
+	If the Execute Script event command has to return a value (which can be useful because you can save it to a variable),
+	all code must be encased in an anonymous function:
+
+		(function() {
+			//Your code here
+		})();
+
+[8] Custom Event Commands
+
+	The counterpart to Execute Script, custom event commands are more complex in design and are used when processing is not
+	to be done instantaneously, e.g. when user input is required. They are identified by a keyword, similar to custom
+	keywords (called "Object Name" at the bottom). Here as well, quotation marks or apostrophes are usually not needed. For
+	this to work, you have to check "Call Event Command".
+
+	Some plugins that introduce custom event commands require you to put information into the "Property" prompt. These work
+	just like custom parameters. Additionally, you may need to supply data in the "Original Data" tab.
+
+[9] Original Data
+
+	Original Data (except the one used in the Execute Script event commands) is a kind of data storage object that can hold
+	all kinds of data like units, skills, items, numerical values and more. Some plugins use this data to make it easier
+	for you to define large amounts of information. When plugins give you the choice of choosing one of the tabs (so they
+	don't become mutually exclusive to plugins who don't), they often want you to supply the INDEX, which is 1 less than
+	the tab number, cause counting starts at 0 in JavaScript.
+
+	Original Data is under Database > Config > Original Data. You can rename the tabs and each piece of data has custom
+	parameters of it's own.
+
+[10] Script conditions for events
+
+	Some more advanced plugins may ask you to set script conditions for events. The basis of this is an anonymous function:
+
+		(function() {
+			//Your code here
+		})();
+
+	Into this goes the whole code. The deciding factor if the condition is fulfilled is the return value of this function.
+	Let's look at this via an example, where the event should only play, when the player unit with ID 3 waits.
+
+		(function() {
+			var unit = root.getCurrentSession().getPlayerList().getDataFromId(3);	//Gets player with ID 3
+			if (unit.isWait()) {	//isWait() is a function to check if units are waiting
+				return true;	//So if the unit waits, true is returned, which lets the event trigger
+			} else {
+				return false;	//In all other cases, false is returned, the event is not triggered
+			}
+		})();
+
+	So an event will only trigger, if the function returns true AND all other normal conditions are met.
+
+[11] Useful options THAT ARE DISABLED BY DEFAULT (Why, SapphireSoft?)
+
+	There are some really useful options that are disabled by default, for whatever cursed reason. If you retain a shred of
+	sanity (unlikely, you are using this engine), consider enabling them:
+
+		- Tools > Options > Editor > Confirm application exit
+			--> SRPG Studio will ask you if you want to exit the engine, don't lose progress accidentally.
+
+		- Tools > Options > Data > Display id next to data name
+			--> Show an object's ID in the editor next to the name, really useful for finding out IDs.
+
+		- Tools > Options > Data > Enable to confirm cancel
+			--> Same as Confirm application exit, but for data windows.
+
+		- Tools > Options > Test Play > Show test menu
+			--> Enable some nice options in test play like infinite turns or defeating units.
+
+		- Tools > Options > Backup
+			--> Back up your shit, nerds!
+
+		- Tools > Options > Expert > Enable facial expressions
+			--> If you want characters to have more than a single expression, ever.
+
+		- Tools > Options > Expert > Enable "Map Tree" in tool menu
+			--> If you want to add animated mapchips. Also needs "Enable map chip animations" in Map tab.
+
+		- Tools > Options > Expert > Display original data in config tab
+			--> If you want to use original data anywhere.
+
+		- Variables window > Options > Id variables can be used...
+			--> ID variables are extremely useful and hiding this behind an obscure option is stupid.
+
+[12] Plugin conflicts/incompatibilities
+
+	These are hard to spot, even for scripters and no one will blame you for failing to see this. However, if you use
+	Notepad++ or Visual Studio Code, you can search a whole folder by opening it with the respective program and pressing
+	Ctrl + Shift + F.
+
+	This can come in handy if you have an idea which function is affected by the issue. You can search for that function's
+	name in the entirety of your plugin folder and maybe find other plugins that overwrite or use these functions in any
+	way. Even if you can't find the exact mistake, this can be a great head start for someone who agreed to help you.
+
+[13] My issue is still not resolved, please help :(
+
+	If you came this far and really tried everything in this guide to no avail, then your problem is more serious. In this
+	case do not hesitate to ask the plugin's creator or another scripter for help. Who knows, you might have found a bug,
+	after all scripters are only human.
+
+	To make it as easy as possible on the person helping you, please include as much of the following information in your
+	message as possible and stand by for further questions:
+
+		- Information about the plugin in question, if possible.
+
+		- Did you get an error message, and if yes please send a screenshot if reproducible, otherwise try to remember
+		  what the error message said and which line of which plugin was affected.
+
+		- A detailed description of the bug. What actions have you taken under which circumstances? What has happened
+		  and what should have happened instead?
+
+		- If any custom parameters/keywords etc. are involved, a screenshot of all of them.
+
+		- Do you suspect a plugin conflict? If yes, have you identified potential sources?
+
+	By providing us scripters with as much information as possible, you speed up the debugging process significantly and
+	increase our willingness to help you out drastically.
+
+
+[14] Help improve this guide!
+
+	Was your issue not included in the guide? Did the author make a stupid mistake or write something so convoluted you
+	couldn't even begin to guess what it means?
+
+	In any case, if you have (constructive) feedback about this guide, ESPECIALLY if it sucks in some way, please reach
+	out to me over the SRPG Studio University Server @Sir Francis of the Filth.
+
+	Thank you for reading and making the scripter's lives less painful :)
