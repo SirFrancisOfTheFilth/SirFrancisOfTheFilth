@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "ES5"
+  },
+  "include": [
+    "./AutocompleteScript/**/*.js",
+    "./Plugin/**/*.js",
+    "./type-definitions.js"
+  ]
+}
