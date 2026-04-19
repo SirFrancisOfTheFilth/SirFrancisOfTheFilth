@@ -1,5 +1,5 @@
 /*
-Original script by unknown creator
+Original script by 小狗肠
 
 FotF changes:	Limited the animation to only the title screen. Previously
 				this affected all scroll backgrounds in the game. Also
