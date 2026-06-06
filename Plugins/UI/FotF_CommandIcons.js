@@ -129,7 +129,7 @@ var FotF_CommandIconControl = {
         var folder = FotF_CommandIconSettings.materialFolder;
 
         if (typeof command.getCommandName === 'function') {
-            string = command.getCommandName() + '.png';
+            string = command.getCommandName() + FotF_CommandIconSettings.fileType;
         } else if (typeof command.getExtraDisplayName === 'function') {
             string = command.getExtraDisplayName() + FotF_CommandIconSettings.fileType;
         }
